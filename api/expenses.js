@@ -1,9 +1,8 @@
-// In-memory store (lost on every redeploy)
+// Simple in-memory storage (resets on every serverless cold start)
 let expenses = [];
 
 export default function handler(req, res) {
   if (req.method === "GET") {
-    // Return all expenses
     return res.status(200).json({
       success: true,
       data: expenses,
@@ -13,7 +12,6 @@ export default function handler(req, res) {
   if (req.method === "POST") {
     const { amount, description, category, date } = req.body || {};
 
-    // Validate missing fields
     const missing = [];
     if (amount === undefined) missing.push("amount");
     if (!description) missing.push("description");
@@ -28,7 +26,6 @@ export default function handler(req, res) {
       });
     }
 
-    // Create expense object
     const newExpense = {
       id: expenses.length + 1,
       amount,
@@ -37,7 +34,6 @@ export default function handler(req, res) {
       date,
     };
 
-    // Add to memory store
     expenses.push(newExpense);
 
     return res.status(201).json({
@@ -46,9 +42,9 @@ export default function handler(req, res) {
     });
   }
 
-  // Method Not Allowed
   return res.status(405).json({
     success: false,
     error: `Method ${req.method} Not Allowed`,
   });
 }
+
