@@ -1,13 +1,12 @@
 {
-  "name": "vercel-expenses-api",
+  "name": "expenses-api",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "vercel dev",
     "start": "vercel dev"
   },
-  "dependencies": {},
   "engines": {
-    "node": ">=18"
+    "node": "18.x"
   }
 }
